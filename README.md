@@ -4,7 +4,7 @@
 - has_many :likes
 - has_many :comments
 
-##table
+##column
 - name
 - email
 - profile
@@ -22,11 +22,10 @@
 - has_many :liked_users, through: :likes, source: :user
 - has_many :comments
 
-##table
+##column
 - user_id
 - catch_copy
 - concept
-- tag
 - created_at
 - updated_at
 
@@ -35,7 +34,7 @@
 ##association
 - belongs_to :prototype
 
-##table
+##column
 - prototype_id
 - image
 - created_at
@@ -48,7 +47,7 @@
 - belongs_to :prototype
 - belongs_to :user
 
-##table
+##column
 - prototype_id
 - user_id
 - created_at
@@ -62,7 +61,7 @@
 - belongs_to :user
 - belongs_to :prototype
 
-##table
+##column
 - content
 - user_id
 - prototype_id
