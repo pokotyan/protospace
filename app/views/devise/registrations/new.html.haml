@@ -1,28 +1,28 @@
-%form.container.user-new{action: ""}
+= form_for(resource, as: resource_name,url: registration_path(resource_name),:html => {class: "container user-new"}) do |f|
   .col-md-8.col-md-offset-2
     %header.row.user-nav.row
       .col-md-12
         %h2 Register
         .user-name_image.row
           .user-name.col-md-10
-            %input{type: "text", placeholder: "Username"}/
+            =f.text_field :name,placeholder: "username"
           .user-image.col-md-2
             %button.btn.btn-primary Add image
             %input{type: "file"}/
-        %input.user-email{type: "email", placeholder: "E-Mail"}/
-        %input.user-password{type: "password", placeholder: "Password"}/
+        =f.text_field :email,placeholder: "E-Mail", class: "user-email"
+        =f.text_field :password,placeholder: "Password", class: "user-password"
       .col-md-12
         %h4 Member of
         .user-user-member.row
           .user-name.col-md-12
-            %input{type: "text", placeholder: "Member"}/
+            =f.text_field :member,placeholder: "Member"
         %h4 Profile
         .user-user-profile.row
           .user-name.col-md-12
-            %textarea{name: "textarea", cols: "30", rows: "4", placeholder: "Profile"}
+            =f.text_field :profile, size: "30x4", placeholder: "Profile"
         %h4 Works
         .user-name_image.row
           .user-name.col-md-12
-            %textarea{name: "textarea", cols: "30", rows: "4", placeholder: "Works"}
+            =f.text_field :works, size: "30x4", placeholder: "Works"
     .row.text-center.user-btn
-      %button.btn.btn-lg.btn-primary.btn-block{type: "submit"} Save
+      =f.submit "save", class: "btn btn-lg btn-primary btn-block"
