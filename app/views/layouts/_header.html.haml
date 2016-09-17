@@ -1,10 +1,10 @@
 .navbar.navbar-default.navbar-static-top.navbar-fixed-top
   .container
-    %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+    = button_tag(class: "navbar-toggle", "data-toggle" => "collapse", "data-target" => ".navbar-responsive-collapse") do
       %span.icon-bar
       %span.icon-bar
       %span.icon-bar
-    %a.navbar-brand(href="/")
+    = link_to root_path, class: "navbar-brand" do
       = image_tag("logo.png", alt: "PROTO TYPE - SHARE THE PROTOTYPE", height: "36px")
     .navbar-collapse.collapse.navbar-responsive-collapse
       -if user_signed_in?
@@ -19,10 +19,10 @@
               %li
                 =link_to("Logout", destroy_user_session_path, method: :delete)
           %li
-            .btn.btn-primary.navbar-btn
+            =button_tag(class: "btn btn-primary navbar-btn") do
               =link_to("New Proto", new_prototype_path)
       -else
         %ul.nav.navbar-nav.navbar-right
           %li
-            .btn.btn-primary.navbar-btn
+            =button_tag(class: "btn btn-primary navbar-btn") do
               =link_to("Get Started", new_user_session_path)
