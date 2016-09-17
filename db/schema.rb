@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160917073619) do
+ActiveRecord::Schema.define(version: 20160917090315) do
 
   create_table "images", force: :cascade do |t|
     t.integer  "prototype_id", limit: 4
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160917073619) do
     t.text     "concept",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "title",      limit: 255
   end
 
   create_table "users", force: :cascade do |t|
