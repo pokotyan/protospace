@@ -11,14 +11,14 @@
             29
             %i Projects
         .proto-user
-          %span.degree we-b inc. Designer
+          %span.degree #{current_user.member}
         .row
           .col-md-6
             %h4 Profile
-            %p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+            %p #{current_user.profile}
           .col-md-6
             %h4 Works
-            %p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+            %p #{current_user.works}
 .container.proto-list
   .row
     .col-sm-4.col-md-3.proto-content
