@@ -4,13 +4,11 @@
       .col-md-12
         =f.text_field :title,placeholder: "Title", class:"proto-new-title"
     .row
-      /fields_forに与えられたブロックは、子レコードのインスタンスの数だけ繰り返される。
-      /今回、prototypes#new で１回buildしてるので子レコードのインスタンスは一つだけ用意されてる。
-      /なので画像を一度に保存したい数（三個）だけ、f.fields_forを呼び出す。
       .col-md-12
         .cover-image-upload
           =f.fields_for :images do |image|
             =image.file_field :image
+            =image.hidden_field :status, :value => "main"
       .col-md-12
         %ul.proto-sub-list.list-group
           -2.times do
@@ -18,6 +16,7 @@
               .image-upload
                 = f.fields_for :images do |image|
                   =image.file_field :image
+                  =image.hidden_field :status, :value => "sub"
           %li.list-group-item.col-md-4
             .image-upload-plus
               %span +

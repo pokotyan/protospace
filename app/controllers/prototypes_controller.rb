@@ -22,7 +22,7 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
-        images_attributes: [:image]
+        images_attributes: [:image,:status]
       ).merge(user_id: current_user.id)
     end
 
