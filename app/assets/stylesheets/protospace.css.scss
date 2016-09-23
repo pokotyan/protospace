@@ -292,6 +292,11 @@ body {
   .thumbnail {
     border-radius: 0;
     padding: 0;
+
+    .thumbnail-link {
+      float: right;
+    }
+
   }
 
   h3 {
