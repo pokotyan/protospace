@@ -29,7 +29,6 @@ class PrototypesController < ApplicationController
 
   def update
     prototype = Prototype.find(params[:id])
-    #binding.pry
     prototype.update(update_params)
     redirect_to root_path, notice: "プロトタイプの更新が完了しました"
   end
