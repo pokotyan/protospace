@@ -29,6 +29,7 @@ class PrototypesController < ApplicationController
 
   def update
     prototype = Prototype.find(params[:id])
+    #binding.pry
     prototype.update(update_params)
     redirect_to root_path, notice: "プロトタイプの更新が完了しました"
   end
@@ -54,7 +55,7 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
-        images_attributes: [:image,:status]
+        images_attributes: [:id,:image,:status] #idも受け取るようにしないとUnpermitted parameter:id
       ).merge(user_id: current_user.id)
     end
 
