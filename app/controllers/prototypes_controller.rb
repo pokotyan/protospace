@@ -5,6 +5,9 @@ class PrototypesController < ApplicationController
   end
 
   def show
+    @prototype = Prototype.find(params[:id])
+    @main_image = @prototype.images.main
+    @sub_images = @prototype.images.sub
   end
 
   def new
