@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :prototypes
   resources :users
 
+  post 'like/:prototype_id' => 'likes#like', as: 'like'
+  delete 'unlike/:prototype_id' => 'likes#unlike', as: 'unlike'
+
   root 'prototypes#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

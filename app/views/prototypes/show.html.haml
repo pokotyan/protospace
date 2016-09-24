@@ -13,11 +13,20 @@
             %span.degree #{@prototype.user.member} #{@prototype.user.works}
 
     .col-md-6.text-right
-      %button.btn.btn-default
-        = image_tag("icon_heart.svg")
-        Like
-        %span.num 20
-  .row
+      -if current_user.likes.find_by(prototype_id:@prototype)
+        =link_to unlike_path(@prototype), method: :delete do
+          %button.btn.btn-default
+            = image_tag("icon_heart.svg")
+            Like
+            %span.num #{@prototype.likes.count}
+      -else
+        =link_to like_path(@prototype), method: :post do
+          %button.btn.btn-default
+            = image_tag("icon_heart.svg")
+            Like
+            %span.num #{@prototype.likes.count}
+
+    .row
     .col-md-9
       = image_tag(@main_image, class: 'img-responsive')
     .col-md-3
