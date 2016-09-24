@@ -1,7 +1,7 @@
 class PrototypesController < ApplicationController
 
   def index
-    @prototypes = Prototype.all
+    @prototypes = Prototype.all.page(params[:page]).per(8)
   end
 
   def show
