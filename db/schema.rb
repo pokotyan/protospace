@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922003805) do
+ActiveRecord::Schema.define(version: 20160924083247) do
 
   create_table "images", force: :cascade do |t|
     t.string   "image",        limit: 255
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20160922003805) do
   end
 
   add_index "images", ["prototype_id"], name: "index_images_on_prototype_id", using: :btree
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "prototype_id", limit: 4
+    t.integer  "user_id",      limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "likes", ["prototype_id"], name: "index_likes_on_prototype_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "prototypes", force: :cascade do |t|
     t.text     "catch_copy", limit: 65535
@@ -57,5 +67,7 @@ ActiveRecord::Schema.define(version: 20160922003805) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "images", "prototypes"
+  add_foreign_key "likes", "prototypes"
+  add_foreign_key "likes", "users"
   add_foreign_key "prototypes", "users"
 end
