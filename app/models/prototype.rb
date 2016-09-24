@@ -14,4 +14,6 @@ class Prototype < ActiveRecord::Base
     end
   end
 
+  paginates_per 8  # 1ページあたり8項目表示
+
 end
