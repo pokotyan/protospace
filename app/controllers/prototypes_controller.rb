@@ -1,11 +1,11 @@
 class PrototypesController < ApplicationController
+  before_action :set_prototype, only: [:show, :edit, :update, :destroy]
 
   def index
     @prototypes = Prototype.all.page(params[:page]).per(8)
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
     @main_image = @prototype.images.main
     @sub_images = @prototype.images.sub
   end
@@ -26,13 +26,11 @@ class PrototypesController < ApplicationController
   end
 
   def edit
-    @prototype = Prototype.find(params[:id])
     @main_image = @prototype.images.main
     @sub_images = @prototype.images.sub
   end
 
   def update
-    prototype = Prototype.find(params[:id])
     if prototype.update(update_params)
       redirect_to root_path, notice: "プロトタイプの更新が完了しました"
     else
@@ -42,7 +40,6 @@ class PrototypesController < ApplicationController
   end
 
   def destroy
-    prototype = Prototype.find(params[:id])
     if prototype.destroy
       redirect_to root_path, notice: "プロトタイプの削除が完了しました"
     else
@@ -51,6 +48,10 @@ class PrototypesController < ApplicationController
   end
 
   private
+    def set_prototype
+      @prototype = Prototype.find(params[:id])
+    end
+
     def create_params
       params.require(:prototype).permit(
         :title,
