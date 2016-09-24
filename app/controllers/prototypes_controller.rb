@@ -29,14 +29,21 @@ class PrototypesController < ApplicationController
 
   def update
     prototype = Prototype.find(params[:id])
-    prototype.update(update_params)
-    redirect_to root_path, notice: "プロトタイプの更新が完了しました"
+    if prototype.update(update_params)
+      redirect_to root_path, notice: "プロトタイプの更新が完了しました"
+    else
+      flash.now[:alert] = "プロトタイプの更新に失敗しました"
+      render :edit
+    end
   end
 
   def destroy
     prototype = Prototype.find(params[:id])
-    prototype.destroy
-    redirect_to root_path, notice: "プロトタイプの削除が完了しました"
+    if prototype.destroy
+      redirect_to root_path, notice: "プロトタイプの削除が完了しました"
+    else
+      redirect_to root_path, alert: "プロトタイプの削除に失敗しました"
+    end
   end
 
   private
@@ -55,7 +62,7 @@ class PrototypesController < ApplicationController
         :catch_copy,
         :concept,
         images_attributes: [:id,:image,:status] #idも受け取るようにしないとUnpermitted parameter:id
-      ).merge(user_id: current_user.id)
+      )
     end
 
 end
