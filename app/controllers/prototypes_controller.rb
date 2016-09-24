@@ -31,7 +31,7 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    if prototype.update(update_params)
+    if @prototype.update(update_params)
       redirect_to root_path, notice: "プロトタイプの更新が完了しました"
     else
       flash.now[:alert] = "プロトタイプの更新に失敗しました"
@@ -40,7 +40,7 @@ class PrototypesController < ApplicationController
   end
 
   def destroy
-    if prototype.destroy
+    if @prototype.destroy
       redirect_to root_path, notice: "プロトタイプの削除が完了しました"
     else
       redirect_to root_path, alert: "プロトタイプの削除に失敗しました"
