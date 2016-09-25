@@ -2,9 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :prototypes
   resources :users
-
-  post 'like/:prototype_id' => 'likes#like', as: 'like'
-  delete 'unlike/:prototype_id' => 'likes#unlike', as: 'unlike'
+  resources :likes, only: [:create, :destroy]
 
   root 'prototypes#index'
 
