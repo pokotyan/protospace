@@ -1,0 +1,12 @@
+-if current_user.likes.find_by(prototype_id:prototype.id)
+  =link_to like_path(prototype), method: :delete, remote: true do
+    %button.btn.btn-default
+      = image_tag("icon_heart_red.svg")
+      Like
+      %span.num #{prototype.likes.count}
+-else
+  =link_to likes_path(prototype), method: :post, remote: true do
+    %button.btn.btn-default
+      = image_tag("icon_heart.svg")
+      Like
+      %span.num #{prototype.likes.count}

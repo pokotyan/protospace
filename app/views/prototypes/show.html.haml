@@ -12,12 +12,10 @@
             =link_to("by #{@prototype.user.name}", user_path(@prototype.user))
             %span.degree #{@prototype.user.member} #{@prototype.user.works}
 
-    .col-md-6.text-right
-      %button.btn.btn-default
-        = image_tag("icon_heart.svg")
-        Like
-        %span.num 20
-  .row
+    .col-md-6.text-right#like-count
+      =render "likes/likes_link", prototype:@prototype
+
+    .row
     .col-md-9
       = image_tag(@main_image, class: 'img-responsive')
     .col-md-3

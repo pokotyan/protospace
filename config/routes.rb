@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :prototypes
   resources :users
+  resources :likes, only: [:create, :destroy]
 
   root 'prototypes#index'
 
