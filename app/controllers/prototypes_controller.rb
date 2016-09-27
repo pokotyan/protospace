@@ -10,7 +10,6 @@ class PrototypesController < ApplicationController
     @sub_images = @prototype.images.sub
 
     @comment = Comment.new
-    @comments = Comment.where(prototype_id:@prototype)
   end
 
   def new
