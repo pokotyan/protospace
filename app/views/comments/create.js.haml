@@ -1,2 +1,4 @@
+$("#comment_count").html("(#{@comments.count})");
+$("#comment").html("#{ j (render @comments) }");
 $("#comment-form").val("");
-$("#comment").html("#{j(render "comments/comment", comments:@comments, prototype:@prototype)}");
+

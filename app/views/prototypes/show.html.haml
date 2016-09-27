@@ -38,8 +38,12 @@
         %li
           %a{href: "#", class: "btn btn-default"} wireframe
   .row.proto-comments
-    #comment
-      =render "comments/comment", comments:@comments, prototype:@prototype
+    %h4.col-md-12
+      Comments
+      %span.num#comment_count
+        (#{@comments.count})
+    .col-md-8#comment
+      =render @comments
 
     .col-md-8
       = form_for @comment, :html => {class: "form-inline", role: "form"}, remote: true do |f|
