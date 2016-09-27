@@ -54,7 +54,7 @@
         %h4 Write a comment
         .row
           .form-group.col-md-10
-            =f.text_field :content, rows: 3, id: "comment-form", placeholder: "Your comments"
+            =f.text_area :content, rows: 3, id: "comment-form", placeholder: "Your comments"
             =f.hidden_field :prototype_id, value: @prototype.id
           .form-group.col-md-2
             =f.submit "Comment", class: "btn btn-primary"
