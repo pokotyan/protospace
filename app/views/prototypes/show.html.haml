@@ -38,18 +38,10 @@
         %li
           %a{href: "#", class: "btn btn-default"} wireframe
   .row.proto-comments
-    -if @comments.blank?
-      %h4.col-md-12
-        Comments
-        %span.num (0)
-    -else
-      %h4.col-md-12
-        Comments
-        %span.num#comment_count (#{@prototype.comments.count})
-    .col-md-8
-      #comment
-        =render partial: @comments
+    #comment
+      =render "comments/comment", comments:@comments, prototype:@prototype
 
+    .col-md-8
       = form_for @comment, :html => {class: "form-inline", role: "form"}, remote: true do |f|
         %h4 Write a comment
         .row
