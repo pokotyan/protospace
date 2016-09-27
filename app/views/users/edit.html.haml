@@ -6,10 +6,11 @@
         .user-name_image.row
           .user-name.col-md-10
             = f.text_field :name, placeholder: "Username"
-          .user-image.col-md-2{style: 'background-image: url(http://泣ける動画.com/wp-content/uploads/2015/01/t0205-01.jpg);'}
+          .user-image.col-md-2
+            =image_tag current_user.avatar.url, class: "media media-object", size: "64x64"
             =button_tag(class: "btn btn-primary") do
               Change image
-              %input{type: "file"}/
+              =f.file_field :avatar
         = f.email_field :email, placeholder: "E-Mail",class: "user-email"
         = f.password_field :password, placeholder: "Password",class: "user-password"
       .col-md-12
