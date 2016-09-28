@@ -8,6 +8,8 @@ class PrototypesController < ApplicationController
   def show
     @main_image = @prototype.images.main
     @sub_images = @prototype.images.sub
+
+    @comment = Comment.new
   end
 
   def new
