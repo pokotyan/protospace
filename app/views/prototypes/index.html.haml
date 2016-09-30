@@ -6,12 +6,12 @@
   .container
     .row
       %ul.nav.nav-pills.col-lg-11
-        -if prototype_index_active?(controller.controller_name)
+        -if prototype_index_active?("popular")
           %li{ role: "presentation", class: "active" }
             =link_to "Popular PROTO", prototypes_popular_path
           %li{ role: "presentation" }
             =link_to "Newest PROTO", prototypes_newest_path
-        -else
+        -elsif prototype_index_active?("newest")
           %li{ role: "presentation" }
             =link_to "Popular PROTO", prototypes_popular_path
           %li{ role: "presentation", class: "active" }

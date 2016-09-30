@@ -1,10 +1,8 @@
 module ApplicationHelper
 
-  def prototype_index_active?(controller_name)
-    if controller_name == "popular"
+  def prototype_index_active?(current_controller_name)
+    if current_controller_name == controller.controller_name
       true
-    else controller_name == "newest"
-      false
     end
   end
 
