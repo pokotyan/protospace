@@ -6,17 +6,10 @@
   .container
     .row
       %ul.nav.nav-pills.col-lg-11
-        /コントローラがprototypesならactiveはなし。コントローラがprototypes以外なら、popular、newestによってactiveを付与する要素を切り替える。
-        -if controller.controller_name == "prototypes"
-          %li{role: "presentation"}
-            =link_to "Popular PROTO", prototypes_popular_path
-          %li{role: "presentation"}
-            =link_to "Newest PROTO", prototypes_newest_path
-        -else
-          %li{role: "presentation", class: "#{ controller.controller_name == "popular" ? "active" : ''}"}
-            =link_to "Popular PROTO", prototypes_popular_path
-          %li{role: "presentation", class: "#{ controller.controller_name == "newest" ? "active" : ''}"}
-            =link_to "Newest PROTO", prototypes_newest_path
+        %li{role: "presentation", class: "#{ popular_index_active?(controller.controller_name) }"}
+          =link_to "Popular PROTO", prototypes_popular_path
+        %li{role: "presentation", class: "#{ newest_index_active?(controller.controller_name)}"}
+          =link_to "Newest PROTO", prototypes_newest_path
 
       %button{type: "button", class: "btn btn-default col-lg-1"} View Tags
 
