@@ -6,10 +6,23 @@
   .container
     .row
       %ul.nav.nav-pills.col-lg-11
-        %li.active{role: "presentation"}
-          =link_to "Popular PROTO", prototypes_popular_path
-        %li{role: "presentation"}
-          =link_to "Newest PROTO", prototypes_newest_path
+        /コントローラがpopularかnewestかprototypesかでactiveの切り替え
+        -if controller.controller_name == "popular"
+          %li.active{role: "presentation"}
+            =link_to "Popular PROTO", prototypes_popular_path
+          %li{role: "presentation"}
+            =link_to "Newest PROTO", prototypes_newest_path
+        -elsif controller.controller_name == "newest"
+          %li{role: "presentation"}
+            =link_to "Popular PROTO", prototypes_popular_path
+          %li.active{role: "presentation"}
+            =link_to "Newest PROTO", prototypes_newest_path
+        -else
+          %li{role: "presentation"}
+            =link_to "Popular PROTO", prototypes_popular_path
+          %li{role: "presentation"}
+            =link_to "Newest PROTO", prototypes_newest_path
+
       %button{type: "button", class: "btn btn-default col-lg-1"} View Tags
 
 .container.proto-list
