@@ -59,6 +59,9 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
+        :web_design_list,
+        :ui_list,
+        :application_list,
         images_attributes: [:image,:status]
       ).merge(user_id: current_user.id)
     end
@@ -68,6 +71,9 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
+        :web_design_list,
+        :ui_list,
+        :application_list,
         images_attributes: [:id,:image,:status] #idも受け取るようにしないとUnpermitted parameter:id
       )
     end
