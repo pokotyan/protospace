@@ -10,7 +10,7 @@
           =link_to "Popular PROTO", prototypes_popular_path
         %li{ role: "presentation",  class: "#{prototype_index_active?("newest")}"}
           =link_to "Newest PROTO", prototypes_newest_path
-      %button{type: "button", class: "btn btn-default col-lg-1"} View Tags
+      = link_to button_tag("View Tags", class: "btn btn-default col-lg-1"),tags_path
 
 .container.proto-list
   .row#sort_prototypes
