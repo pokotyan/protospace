@@ -59,11 +59,8 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
-        :web_design_list,
-        :ui_list,
-        :application_list,
-        images_attributes: [:image,:status]
-      ).merge(user_id: current_user.id)
+        images_attributes: [:image,:status],
+      ).merge(user_id: current_user.id).merge(tag_list: params[:prototype][:tag])
     end
 
     def update_params
@@ -71,11 +68,8 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
-        :web_design_list,
-        :ui_list,
-        :application_list,
-        images_attributes: [:id,:image,:status] #idも受け取るようにしないとUnpermitted parameter:id
-      )
+        images_attributes: [:id,:image,:status], #idも受け取るようにしないとUnpermitted parameter:id
+      ).merge(tag_list: params[:prototype][:tag])
     end
 
 end

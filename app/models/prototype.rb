@@ -18,7 +18,6 @@ class Prototype < ActiveRecord::Base
 
   paginates_per 8  # 1ページあたり8項目表示
 
-  #３種類のタグを定義
-  acts_as_taggable_on :web_designs, :uis, :applications
+  acts_as_taggable
 
 end
