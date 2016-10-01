@@ -1,8 +1,5 @@
 .container
   .row
     .tag-header
-      %span # #{params[:id]}
-    -if params[:id] == "web_designs" || params[:id] == "applications" || params[:id] == "uis"
-      =render partial: "prototypes/prototype" , collection: get_prototype_of_context(params[:id])
-    -else
-      =render partial: "prototypes/prototype" , collection: get_prototype_of_tag(params[:id])
+      %span # #{@tag_name}
+    =render partial: "prototypes/prototype" , collection: @tags
