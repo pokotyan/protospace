@@ -1,23 +1,10 @@
 .container
   .row
-    .col-sm-4.col-sm-3
-      =link_to tag_path(:web_designs), class: "tag thumbnail" do
-        =""
-        .tag-name
-          web
-        .tag-project
-          = "#{@web_design_tags_count} project"
-    .col-sm-4.col-sm-3
-      =link_to tag_path(:applications), class: "tag thumbnail" do
-        =""
-        .tag-name
-          iOS
-        .tag-project
-          = "#{@application_tags_count} project"
-    .col-sm-4.col-sm-3
-      =link_to tag_path(:uis), class: "tag thumbnail" do
-        =""
-        .tag-name
-          Design
-        .tag-project
-          = "#{@uis_tags_count} project"
+    - @tags.each do |tag|
+      .col-sm-4.col-sm-3
+        =link_to tag_path(tag), class: "tag thumbnail" do
+          =""
+          .tag-name
+            = tag.name
+          .tag-project
+            = "#{tag.taggings.count} project"
