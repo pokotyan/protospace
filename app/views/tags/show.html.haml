@@ -2,9 +2,7 @@
   .row
     .tag-header
       %span # #{params[:id]}
-    -if params[:id] == "web"
-      =render partial: "prototypes/prototype" , collection: @web_design_prototypes
-    -elsif params[:id] == "ios"
-      =render partial: "prototypes/prototype" , collection: @application_prototypes
-    -elsif params[:id] == "design"
-      =render partial: "prototypes/prototype" , collection: @ui_prototypes
+    -if params[:id] == "web_designs" || params[:id] == "applications" || params[:id] == "uis"
+      =render partial: "prototypes/prototype" , collection: get_prototype_of_context(params[:id])
+    -else
+      =render partial: "prototypes/prototype" , collection: get_prototype_of_tag(params[:id])
