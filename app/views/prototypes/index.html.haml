@@ -6,15 +6,18 @@
   .container
     .row
       %ul.nav.nav-pills.col-lg-11
-        %li.active{role: "presentation"}
-          %a{href: "#"} Popular PROTO
-        %li{role: "presentation"}
-          %a{href: "#"} Newest PROTO
+        %li{ role: "presentation", class: "#{prototype_index_active?("popular")}"}
+          =link_to "Popular PROTO", prototypes_popular_path
+        %li{ role: "presentation",  class: "#{prototype_index_active?("newest")}"}
+          =link_to "Newest PROTO", prototypes_newest_path
       %button{type: "button", class: "btn btn-default col-lg-1"} View Tags
 
 .container.proto-list
-  .row
-    =render @prototypes
+  .row#sort_prototypes
+    /=render @prototypes だと不具合が出る。
+    /パーシャルをフルパスで書かないと、newest_contoroller#indexからこのビューへrenderされた時に
+    /prototypes/prototypes/_prototypeというパーシャルを探そうとしてMissingTemplateになってしまう。コントローラをネストしたせいか。
+    =render partial: "prototypes/prototype" , collection: @prototypes
 
 .text-center
   = paginate(@prototypes)

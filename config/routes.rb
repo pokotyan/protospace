@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  #resources :prototypesより上にこのルーティングがないとprototypes/newestへのアクセスが
+  #prototype_path(/prototypes/:id)へのアクセスと解釈されるため、意図した動作にならなくなる。
+  get 'prototypes/newest'  => 'prototypes/newest#index'
+  get 'prototypes/popular'  => 'prototypes/popular#index'
+
   resources :prototypes
   resources :users
   resources :likes, only: [:create, :destroy]
