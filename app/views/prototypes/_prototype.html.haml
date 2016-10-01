@@ -22,7 +22,14 @@
         .proto-date
           =prototype.updated_at.strftime("%b %d")
       %ul.proto-tag-list.list-inline
-        %li
-          %a{href: "#", class: "btn btn-default"} iPad
-        %li
-          %a{href: "#", class: "btn btn-default"} wireframe
+        - prototype.web_design_list.each do |tag_name|
+          %li
+            = link_to tag_name, tag_path(tag_name), class: "btn btn-default"
+        - prototype.ui_list.each do |tag_name|
+          %li
+            = link_to tag_name, tag_path(tag_name), class: "btn btn-default"
+        - prototype.application_list.each do |tag_name|
+          %li
+            = link_to tag_name, tag_path(tag_name), class: "btn btn-default"
+
+
