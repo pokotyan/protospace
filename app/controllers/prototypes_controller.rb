@@ -18,7 +18,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(create_params)
+    @prototype = current_user.prototypes.build(create_params)
     if @prototype.save
       redirect_to root_path, notice: "プロトタイプの投稿が完了しました"
     else
@@ -61,7 +61,7 @@ class PrototypesController < ApplicationController
         :concept,
         images_attributes: [:image,:status],
         tag_list: []
-      ).merge(user_id: current_user.id)
+      )
     end
 
     def update_params
