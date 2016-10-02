@@ -29,11 +29,8 @@
         .col-md-12
           %h4 Tag List
           .row
-            .col-md-3
-              = text_field_tag "prototype[tag_list][]", @prototype.tag_list[0], placeholder: "Web Design"
-            .col-md-3
-              = text_field_tag "prototype[tag_list][]", @prototype.tag_list[1], placeholder: "UI"
-            .col-md-3
-              = text_field_tag "prototype[tag_list][]", @prototype.tag_list[2], placeholder: "Application"
+            -["Web Design","UI","Application"].each.with_index(0) do |placeholder,i|
+              .col-md-3
+                = text_field_tag "prototype[tag_list][]", @prototype.tag_list[i], placeholder: placeholder
       .row.text-center.proto-btn
         =f.submit "Publish", class: "btn btn-lg btn-primary btn-block"
