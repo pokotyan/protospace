@@ -18,7 +18,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(create_params)
+    @prototype = current_user.prototypes.build(create_params)
     if @prototype.save
       redirect_to root_path, notice: "プロトタイプの投稿が完了しました"
     else
@@ -59,8 +59,9 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
-        images_attributes: [:image,:status]
-      ).merge(user_id: current_user.id)
+        images_attributes: [:image,:status],
+        tag_list: []
+      )
     end
 
     def update_params
@@ -68,8 +69,9 @@ class PrototypesController < ApplicationController
         :title,
         :catch_copy,
         :concept,
-        images_attributes: [:id,:image,:status] #idも受け取るようにしないとUnpermitted parameter:id
-      )
+        images_attributes: [:id,:image,:status], #idも受け取るようにしないとUnpermitted parameter:id
+        tag_list: []
+      )#.merge(tag_list: params[:prototype][:tag_list])
     end
 
 end

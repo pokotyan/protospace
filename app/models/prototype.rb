@@ -18,4 +18,6 @@ class Prototype < ActiveRecord::Base
 
   paginates_per 8  # 1ページあたり8項目表示
 
+  acts_as_taggable
+
 end
