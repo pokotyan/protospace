@@ -13,7 +13,7 @@
               =image_tag @main_image[0].image.url, class: "prototype-image"
         .col-md-12
           %ul.proto-sub-list.list-group
-            -@sub_images.each do |sub_image|
+            -@sub_images.each.with_index do |sub_image,i|
               %li.list-group-item.col-md-4.js-image-preview
                 .image-upload
                   = f.fields_for :images, sub_image do |image|
