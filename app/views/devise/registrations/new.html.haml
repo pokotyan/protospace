@@ -7,7 +7,8 @@
         .user-name_image.row
           .user-name.col-md-10
             =f.text_field :name,placeholder: "username"
-          .user-image.col-md-2
+          .user-image.col-md-2.js-image-preview
+            =image_tag "", class: "avatar-image"
             =button_tag(class: "btn btn-primary") do
               Add image
               =f.file_field :avatar
