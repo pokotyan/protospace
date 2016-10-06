@@ -13,21 +13,20 @@
           =f.text_field :title,placeholder: "Title", class:"proto-new-title" ,required: true
       .row
         .col-md-12
-          .cover-image-upload
+          .cover-image-upload.js-image-preview
             =f.fields_for :images do |image|
               =image.file_field :image ,required: true
               =image.hidden_field :status, value: "main"
+              =image_tag "", class: "prototype-image"
         .col-md-12
           %ul.proto-sub-list.list-group
-            -2.times do
+            -3.times do
               %li.list-group-item.col-md-4
-                .image-upload
+                .image-upload.js-image-preview
                   = f.fields_for :images do |image|
                     =image.file_field :image
                     =image.hidden_field :status, value: "sub"
-            %li.list-group-item.col-md-4
-              .image-upload-plus
-                %span +
+                    =image_tag "", class: "prototype-image"
       .row.proto-description
         .col-md-12
           =f.text_field :catch_copy,placeholder: "Catch Copy" ,required: true

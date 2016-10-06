@@ -6,18 +6,20 @@
           =f.text_field :title,placeholder: "Title", class:"proto-new-title"
       .row
         .col-md-12
-          .cover-image-upload
+          .cover-image-upload.js-image-preview
             =f.fields_for :images, @main_image do |image|
               =image.file_field :image
               =image.hidden_field :status, value: "main"
+              =image_tag @main_image[0].image.url, class: "prototype-image"
         .col-md-12
           %ul.proto-sub-list.list-group
-            -@sub_images.each do |sub_image|
-              %li.list-group-item.col-md-4
+            -@sub_images.each.with_index do |sub_image,i|
+              %li.list-group-item.col-md-4.js-image-preview
                 .image-upload
                   = f.fields_for :images, sub_image do |image|
                     =image.file_field :image
                     =image.hidden_field :status, value: "sub"
+                    =image_tag sub_image.image.url, class: "prototype-image"
             %li.list-group-item.col-md-4
               .image-upload-plus
                 %span +

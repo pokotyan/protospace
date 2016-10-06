@@ -634,3 +634,19 @@ body {
   height: 10px;
   text-align: center;
 }
+
+.prototype-image{
+  height: 100%;
+  width: 100%;
+}
+
+.avatar-image{
+  //円を作る
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  //親との相対位置
+  position: relative;
+  right: 16px;
+  bottom: 2px;
+}
