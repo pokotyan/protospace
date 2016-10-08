@@ -14,14 +14,14 @@
     .col-md-6.text-right#like-count
       =render "likes/likes_link", prototype:@prototype
 
-    .row
+  .row
     .col-md-9
-      = image_tag(@main_image, class: 'img-responsive')
+      = image_tag(@main_image[0].image.url, class: 'img-responsive')
     .col-md-3
       %ul.proto-sub-list.list-group
         -@sub_images.each do |sub_image|
           %li.list-group-item
-            = image_tag(sub_image, class: 'img-responsive')
+            = image_tag(sub_image.image.url, class: 'img-responsive')
   .row.proto-description
     .col-md-3
       %h4 Catch Copy
