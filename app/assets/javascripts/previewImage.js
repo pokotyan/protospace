@@ -10,8 +10,8 @@ $(function(){
 
       reader.readAsDataURL(file);
       reader.onload = function(){
-        image_tag.attr("src",reader.result)
-      }
+        image_tag.attr("src",reader.result);
+      };
     });
   });
 });
