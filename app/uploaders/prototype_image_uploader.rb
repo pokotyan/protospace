@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-#storageを開発、本番環境ならfog(S3)、testならfile(ローカル)に保存
-require_relative '../../config/initializers/carrierwave.rb'
-
 class PrototypeImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
