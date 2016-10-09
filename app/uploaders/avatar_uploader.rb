@@ -1,17 +1,13 @@
 # encoding: utf-8
 
+#storageを開発、本番環境ならfog(S3)、testならfile(ローカル)に保存
+require_relative '../../config/initializers/carrierwave.rb'
+
 class AvatarUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
-
-  # Choose what kind of storage to use for this uploader:
-  if Rails.env == 'production' || Rails.env == 'development'
-    storage :fog
-  elsif Rails.env == 'test'
-    storage :file
-  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
