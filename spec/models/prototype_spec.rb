@@ -73,4 +73,22 @@ describe Prototype do
       expect(prototype.images.count).to eq 1
     end
   end
+  #userがlikeしてたら
+  describe '#liked_by?(user)' do
+    #userがlikeしてたらtrueを返す
+    context "when liked by a user" do
+      let(:prototype) { create(:prototype_with_main_image, :with_likes) }
+      it "returns true" do
+        like = prototype.user.likes.find_by(prototype_id:prototype.id)
+        expect(like["prototype_id"] == prototype.id).to eq true
+      end
+    end
+    #userがlikeしてなかったらnilを返す
+    context "when not liked by a user" do
+      let(:prototype) { create(:prototype_with_main_image) }
+      it "returns nil" do
+        expect(prototype.user.likes.find_by(prototype_id:prototype.id)).to eq nil
+      end
+    end
+  end
 end
