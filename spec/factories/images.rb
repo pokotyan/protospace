@@ -11,6 +11,11 @@ FactoryGirl.define do
     factory :sub_image do
       status 1
     end
+
+    factory :wrong_content do
+      image{ Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures/txt/sample.txt'), 'text/plain' }
+    end
+
   end
 
 end
