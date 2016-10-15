@@ -1,0 +1,7 @@
+このテキストは拡張子がjpg jpeg gif pngのいずれでもないので
+アップローダーの以下の記述によりバリデーションかけられて保存されない
+
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
+

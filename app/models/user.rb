@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :name,presence: true
+  validates :password, length: { minimum: 7 }
 
   has_many :prototypes
   has_many :likes
