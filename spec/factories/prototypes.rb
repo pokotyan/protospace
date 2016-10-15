@@ -8,15 +8,29 @@ FactoryGirl.define do
 
     #after buildはFactoryGirl.create後も実行される.
     #逆にafter createはFactoryGirl.build後は実行されないためコールバックはbuildとcreateならbuildの方が便利
-    after(:build) do |prototype|
-      [ :main_image, :sub_image, :sub_image, :sub_image ].each do |image|
-        prototype.images << build(image,prototype_id: prototype.id)
+    factory :prototype_with_main_image do
+      after(:build) do |prototype|
+        prototype.images << build(:main_image, prototype_id: prototype.id)
+      end
+    end
+
+    trait :with_full_images do
+      after(:build) do |prototype|
+        [ :main_image, :sub_image, :sub_image, :sub_image ].each do |image|
+          prototype.images << build(image,prototype_id: prototype.id)
+        end
       end
     end
 
     trait :with_likes do
       after(:build) do |prototype|
         prototype.likes << build(:like, prototype_id: prototype.id, user_id:prototype.user.id)
+      end
+    end
+
+    trait :with_comments do
+      after(:build) do |prototype|
+        prototype.comments << build(:comment, prototype_id: prototype.id, user_id:prototype.user.id)
       end
     end
 
