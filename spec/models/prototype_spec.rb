@@ -57,4 +57,20 @@ describe Prototype do
       end
     end
   end
+  #sub画像を投稿したら
+  describe '#set_sub_thumbnails ' do
+    #sub画像を含む配列を返します。
+    it "returns an array containing sub_images" do
+      prototype = create(:prototype, :with_full_images)
+      expect(prototype.images[1].status).to include("sub")
+    end
+  end
+  #sub画像の拒否
+  describe '#reject_sub_images(attributed)' do
+    #sub画像が投稿されていなかったらsub画像を保存しない
+    it "doesnt save a record with nil content" do
+      prototype = create(:prototype_with_main_image)
+      expect(prototype.images.count).to eq 1
+    end
+  end
 end
