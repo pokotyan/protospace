@@ -19,6 +19,7 @@ class PrototypesController < ApplicationController
 
   def create
     @prototype = current_user.prototypes.build(create_params)
+    binding.pry
     if @prototype.save
       redirect_to root_path, notice: "プロトタイプの投稿が完了しました"
     else
