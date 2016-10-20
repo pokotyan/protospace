@@ -5,11 +5,11 @@ FactoryGirl.define do
     image{ Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures/img/sample.jpg'), 'image/jpg' }
 
     factory :main_image do
-      status 0
+      status "main"
     end
 
     factory :sub_image do
-      status 1
+      status "sub"
     end
 
     factory :wrong_content do

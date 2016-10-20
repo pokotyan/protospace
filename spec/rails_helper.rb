@@ -21,8 +21,8 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   #deviseのログイン用モジュール
-  config.extend ControllerMacros, type: :controller
-
+  config.include Devise::TestHelpers, type: :controller #Deviseのテスト用ヘルパー（sign_in user とか）をRspecで使えるようにする
+  config.extend ControllerMacros, type: :controller     #作ったControllerMacrosを読み込む
 
   config.use_transactional_fixtures = false
 

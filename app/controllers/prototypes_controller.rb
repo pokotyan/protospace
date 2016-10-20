@@ -1,5 +1,6 @@
 class PrototypesController < ApplicationController
   before_action :set_prototype, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create,:edit,:destroy]
 
   def index
     @prototypes = Prototype.includes(:images).page(params[:page]).order("created_at DESC")
@@ -19,7 +20,6 @@ class PrototypesController < ApplicationController
 
   def create
     @prototype = current_user.prototypes.build(create_params)
-    binding.pry
     if @prototype.save
       redirect_to root_path, notice: "プロトタイプの投稿が完了しました"
     else

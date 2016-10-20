@@ -42,29 +42,48 @@ describe PrototypesController do
     end
 
     describe 'POST #create' do
+      #deviseのログイン(login_user)を事前にしておかないと、コントローラのcurrent_user.prototypes〜の部分で
+      #undefined method `prototypes' for nil:NilClass になる。before_action :authenticate_user!を設定してなくてもnilになる。
       login_user
       context "with valid attributes" do
+        #prototypeの投稿に必要な属性が全て含まれたparamsを作る。paramsのネストっぷりも実際の投稿を止めて確認し、同じものを再現する。
+        let(:post_prototype){post :create, prototype: attributes_for(:prototype_with_main_image, user_id: @user.id, images_attributes: { "0": attributes_for(:main_image)})}
 
+        #prototypeがデータベースに保存されること
         it "saves the new prototype in the database" do
-          binding.pry
-          expect{
-            post :create, prototype: attributes_for(:prototype_with_main_image, images_attributes: attributes_for(:main_image))
-          }.to change{Prototype.count}.by(1)
+          expect{post_prototype}.to change{Prototype.count}.by(1)
         end
 
+        #保存後、ルートパスにリダイレクトすること
         it "redirects to root_path" do
+          post_prototype
+          expect(response).to redirect_to root_path
         end
 
+        #投稿完了のflashメッセージが出ること
         it "shows flash messages to show save the prototype successfully" do
+          post_prototype
+          expect(flash[:notice]).to eq "プロトタイプの投稿が完了しました"
         end
 
       end
       context "with invalid attributes" do
-        it "" do
+        #titleがnilの無効なparams
+        let(:post_invalid_prototype){post :create, prototype: attributes_for(:prototype_with_main_image, title: nil, user_id: @user.id, images_attributes: { "0": attributes_for(:main_image)})}
+
+        #無効な属性の場合はデータベースに保存されないこと
+        it "does not save the new prototype in the database" do
+          expect{post_invalid_prototype}.not_to change{Prototype.count}
         end
-        it "" do
+        #無効な属性の場合はnewページに戻ること
+        it "redirects new_prototype_path" do
+          post_invalid_prototype
+          expect(response).to render_template :new
         end
-        it "" do
+        #投稿失敗のflashメッセージが出ること
+        it "show flash messages to show save the prototype unsuccessfully" do
+          post_invalid_prototype
+          expect(flash.now[:alert]).to eq "プロトタイプの投稿に失敗しました"
         end
       end
     end
