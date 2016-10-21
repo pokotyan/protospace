@@ -219,6 +219,39 @@ describe PrototypesController do
 
       end
     end
+    describe 'DELETE#destroy' do
 
+      login_user
+
+      before :each do
+        @prototype = create(:prototype_with_main_image)
+      end
+
+      #要求されたprototypeが@prototypeに格納されていること
+      it "assigns the requested prototype to @prototype" do
+        delete :destroy, id: @prototype
+        expect(assigns(:prototype)).to eq @prototype
+      end
+
+      #prototypeを削除すること
+      it "deletes the prototype" do
+        expect{
+          delete :destroy, id: @prototype
+          }.to change(Prototype, :count).by(-1)
+      end
+
+      #rootページへリダイレクトすること
+      it "redirect_to root_path" do
+        delete :destroy, id: @prototype
+        expect(response).to redirect_to root_path
+      end
+
+      #削除完了のflashメッセージが出ること
+      it "shows flash message to show delete prototype successfully" do
+        delete :destroy, id: @prototype
+        expect(flash[:notice]).to eq "プロトタイプの削除が完了しました"
+      end
+
+    end
   end
 end
