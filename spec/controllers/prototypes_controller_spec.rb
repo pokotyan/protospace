@@ -24,6 +24,7 @@ describe PrototypesController do
 
     end
     describe 'GET #new' do
+      login_user
 
       before :each do
         get :new
@@ -158,6 +159,9 @@ describe PrototypesController do
 
     end
     describe 'PATCH #update' do
+
+      login_user
+
       describe 'with valid attributes' do
 
         let(:prototype){ create(:prototype_with_main_image) }
@@ -250,6 +254,59 @@ describe PrototypesController do
       it "shows flash message to show delete prototype successfully" do
         delete :destroy, id: @prototype
         expect(flash[:notice]).to eq "プロトタイプの削除が完了しました"
+      end
+
+    end
+  end
+  describe "without user login" do
+
+    describe 'GET#new' do
+      #ログインせずnewページに行ってもログインページにリダイレクトすること
+      it "redirect_to sign_in page" do
+        get :new
+        expect(response).to redirect_to new_user_session_path
+      end
+
+    end
+
+    describe 'POST#create' do
+      #ログインせず投稿するとログインページにリダイレクトすること
+      it "redirect_to sign_in page" do
+        post :create,
+          prototype: attributes_for(:prototype_with_main_image,
+          images_attributes: { "0": attributes_for(:main_image) }
+          )
+        expect(response).to redirect_to new_user_session_path
+      end
+
+    end
+
+    describe 'GET#edit' do
+      let(:prototype){ create(:prototype_with_main_image) }
+      #ログインせず更新ページに行ってもログインページにリダイレクトすること
+      it "redirect_to sign_in page" do
+        get :edit, id: prototype
+        expect(response).to redirect_to new_user_session_path
+      end
+
+    end
+
+    describe 'PATCH#update' do
+      let(:prototype){ create(:prototype_with_main_image) }
+      #ログインせず更新してもログインページにリダイレクトすること
+      it "redirect_to sign_in page" do
+        patch :update, id: prototype, prototype: attributes_for(:prototype,title: "update")
+        expect(response).to redirect_to new_user_session_path
+      end
+
+    end
+
+    describe 'DELETE#destroy' do
+      let(:prototype){ create(:prototype_with_main_image) }
+      #ログインせず削除してもログインページにリダイレクトすること
+      it "redirect_to sign_in page" do
+        delete :destroy, id: prototype
+        expect(response).to redirect_to new_user_session_path
       end
 
     end
