@@ -34,11 +34,11 @@ class PrototypesController < ApplicationController
   end
 
   def update
+    #binding.pry
     if @prototype.update(update_params)
-      redirect_to root_path, notice: "プロトタイプの更新が完了しました"
+      redirect_to prototype_path(@prototype), notice: "プロトタイプの更新が完了しました"
     else
-      flash.now[:alert] = "プロトタイプの更新に失敗しました"
-      render :edit
+      redirect_to edit_prototype_path(@prototype), alert: "プロトタイプの更新に失敗しました"
     end
   end
 

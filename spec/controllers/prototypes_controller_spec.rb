@@ -47,7 +47,11 @@ describe PrototypesController do
       login_user
       context "with valid attributes" do
         #prototypeの投稿に必要な属性が全て含まれたparamsを作る。paramsのネストっぷりも実際の投稿を止めて確認し、同じものを再現する。
-        let(:post_prototype){post :create, prototype: attributes_for(:prototype_with_main_image, user_id: @user.id, images_attributes: { "0": attributes_for(:main_image)})}
+        let(:post_prototype){post :create,
+          prototype: attributes_for(:prototype_with_main_image,
+          user_id: @user.id,
+          images_attributes: { "0": attributes_for(:main_image) }
+          ) }
 
         #prototypeがデータベースに保存されること
         it "saves the new prototype in the database" do
@@ -69,7 +73,12 @@ describe PrototypesController do
       end
       context "with invalid attributes" do
         #titleがnilの無効なparams
-        let(:post_invalid_prototype){post :create, prototype: attributes_for(:prototype_with_main_image, title: nil, user_id: @user.id, images_attributes: { "0": attributes_for(:main_image)})}
+        let(:post_invalid_prototype){post :create,
+          prototype: attributes_for(:prototype_with_main_image,
+            title: nil,
+            user_id: @user.id,
+            images_attributes: { "0": attributes_for(:main_image) }
+            ) }
 
         #無効な属性の場合はデータベースに保存されないこと
         it "does not save the new prototype in the database" do
@@ -148,5 +157,68 @@ describe PrototypesController do
       end
 
     end
+    describe 'PATCH #update' do
+      describe 'with valid attributes' do
+
+        let(:prototype){ create(:prototype_with_main_image) }
+
+        before :each do
+          patch :update, id: prototype, prototype: attributes_for(:prototype,title: "update")
+          prototype.reload
+        end
+
+        #要求されたprototypeが@prototypeに格納されていること
+        it "assigns the requested prototype to @prototype" do
+          expect(assigns(:prototype)).to eq prototype
+        end
+
+        #更新できること
+        it "updates attributes of prototype" do
+          expect(prototype.title).to eq "update"
+        end
+
+        #更新したprototypeのページにリダイレクトすること
+        it "redirect to prototype_path" do
+          expect(response).to redirect_to prototype_path(prototype)
+        end
+
+        #更新完了のflashメッセージが出ること
+        it "shows flash message to show update prototype successfully" do
+          expect(flash[:notice]).to eq "プロトタイプの更新が完了しました"
+        end
+
+      end
+      describe 'with invalid attributes' do
+
+        let(:prototype){ create(:prototype_with_main_image) }
+
+        before :each do
+          patch :update, id: prototype, prototype: attributes_for(:prototype,title: nil)
+          prototype.reload
+        end
+
+        #要求されたprototypeが@prototypeに格納されていること
+        it "assigns the requested prototype to @prototype" do
+          expect(assigns(:prototype)).to eq prototype
+        end
+
+        #prototypeの属性を変更しないこと
+        it "does not save the new prototype" do
+          expect(prototype.title).to eq "test"
+        end
+
+        #editテンプレートを再表示すること
+        it "renders the :edit template" do
+          expect(response).to redirect_to edit_prototype_path(prototype)
+        end
+
+        #更新失敗のflashメッセージが出ること
+        it "shows flash message to show update prototype unsuccessfully" do
+          expect(flash[:alert]).to eq "プロトタイプの更新に失敗しました"
+        end
+
+      end
+    end
+
   end
 end
