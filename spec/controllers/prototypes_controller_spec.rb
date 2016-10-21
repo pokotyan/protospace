@@ -118,5 +118,35 @@ describe PrototypesController do
       end
 
     end
+    describe 'GET #edit' do
+
+      login_user
+      let(:prototype){ create(:prototype, :with_full_images) }
+
+      before :each do
+        get :edit, id: prototype
+      end
+
+      #要求されたprototypeが@prototypeに格納されていること
+      it "assigns the requested prototype to @prototype" do
+        expect(assigns(:prototype)).to eq prototype
+      end
+
+      #@prototypeにひもづくmain_imageが@main_imageに格納されていること
+      it "assigns main_image to @main_image" do
+        expect(assigns(:main_image)).to eq prototype.images.main
+      end
+
+      #@prototypeにひもづくsub_imageが@sub_imageに格納されていること
+      it "assigns sub_images to @sub_images" do
+        expect(assigns(:sub_images)).to eq prototype.images.sub
+      end
+
+      #editテンプレートを表示すること
+      it "redirect the :edit templlate" do
+        expect(response).to render_template :edit
+      end
+
+    end
   end
 end
