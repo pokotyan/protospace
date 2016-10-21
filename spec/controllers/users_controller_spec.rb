@@ -67,4 +67,25 @@ describe UsersController do
     end
 
   end
+  describe 'without user login' do
+
+    let(:user){ create(:user) }
+
+    describe 'GET #edit' do
+      #ログインしていないとユーザー編集ページにアクセスしてもログインページに遷移させる
+      it "redirect_to sign_in page" do
+        get :edit, id: user
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe 'PATCH #update' do
+      #ログインしていないとユーザー編集はできない。ログインページに遷移させる
+      it "redirect_to sign_in page" do
+        patch :update, id: user, user: attributes_for(:user,name: "update_name")
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+  end
 end
