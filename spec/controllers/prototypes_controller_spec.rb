@@ -4,6 +4,13 @@ require 'pry-rails'
 describe PrototypesController do
 
   describe 'with user login' do
+
+    #deviseのログイン(login_user)を事前にしておかないと、コントローラのcurrent_user.prototypes〜の部分で
+    #undefined method `prototypes' for nil:NilClass になる。before_action :authenticate_user!を設定してなくてもnilになる。
+    login_user
+
+    let(:prototype){ create(:prototype_with_main_image) }
+
     describe 'GET #index' do
 
       before :each do
@@ -14,7 +21,7 @@ describe PrototypesController do
       it "assigns the requested prototypes to @prototypes" do
         prototype1 = create(:prototype_with_main_image, title: "test1")
         prototype2 = create(:prototype_with_main_image, title: "test2")
-        expect(assigns(:prototypes).map{|prototype| prototype["title"] }.flatten).to match_array(["test1","test2"])
+        expect(assigns(:prototypes)).to match_array([prototype1,prototype2])
       end
 
       #GET #indexでindexテンプレートを表示すること
@@ -24,7 +31,6 @@ describe PrototypesController do
 
     end
     describe 'GET #new' do
-      login_user
 
       before :each do
         get :new
@@ -43,16 +49,19 @@ describe PrototypesController do
     end
 
     describe 'POST #create' do
-      #deviseのログイン(login_user)を事前にしておかないと、コントローラのcurrent_user.prototypes〜の部分で
-      #undefined method `prototypes' for nil:NilClass になる。before_action :authenticate_user!を設定してなくてもnilになる。
-      login_user
+
+      let(:main_image_params){{ "0": attributes_for(:main_image) }}
+
+      let(:post_prototype){
+        post :create, prototype: attributes_for(:prototype, user_id:@user.id )
+        .merge(images_attributes: main_image_params)
+      }
+
+      let(:post_invalid_prototype){
+        post :create, prototype: attributes_for(:prototype, user_id:@user.id )
+      }
+
       context "with valid attributes" do
-        #prototypeの投稿に必要な属性が全て含まれたparamsを作る。paramsのネストっぷりも実際の投稿を止めて確認し、同じものを再現する。
-        let(:post_prototype){post :create,
-          prototype: attributes_for(:prototype_with_main_image,
-          user_id: @user.id,
-          images_attributes: { "0": attributes_for(:main_image) }
-          ) }
 
         #prototypeがデータベースに保存されること
         it "saves the new prototype in the database" do
@@ -73,16 +82,10 @@ describe PrototypesController do
 
       end
       context "with invalid attributes" do
-        #titleがnilの無効なparams
-        let(:post_invalid_prototype){post :create,
-          prototype: attributes_for(:prototype_with_main_image,
-            title: nil,
-            user_id: @user.id,
-            images_attributes: { "0": attributes_for(:main_image) }
-            ) }
 
         #無効な属性の場合はデータベースに保存されないこと
         it "does not save the new prototype in the database" do
+          post_invalid_prototype
           expect{post_invalid_prototype}.not_to change{Prototype.count}
         end
         #無効な属性の場合はnewページに戻ること
@@ -98,8 +101,6 @@ describe PrototypesController do
       end
     end
     describe 'GET #show' do
-
-      let(:prototype){ create(:prototype_with_main_image) }
 
       before :each do
         get :show, id: prototype
@@ -130,7 +131,6 @@ describe PrototypesController do
     end
     describe 'GET #edit' do
 
-      login_user
       let(:prototype){ create(:prototype, :with_full_images) }
 
       before :each do
@@ -160,11 +160,7 @@ describe PrototypesController do
     end
     describe 'PATCH #update' do
 
-      login_user
-
       describe 'with valid attributes' do
-
-        let(:prototype){ create(:prototype_with_main_image) }
 
         before :each do
           patch :update, id: prototype, prototype: attributes_for(:prototype,title: "update")
@@ -194,8 +190,6 @@ describe PrototypesController do
       end
       describe 'with invalid attributes' do
 
-        let(:prototype){ create(:prototype_with_main_image) }
-
         before :each do
           patch :update, id: prototype, prototype: attributes_for(:prototype,title: nil)
           prototype.reload
@@ -224,8 +218,6 @@ describe PrototypesController do
       end
     end
     describe 'DELETE#destroy' do
-
-      login_user
 
       before :each do
         @prototype = create(:prototype_with_main_image)
@@ -260,6 +252,8 @@ describe PrototypesController do
   end
   describe "without user login" do
 
+    let(:prototype){ create(:prototype_with_main_image) }
+
     describe 'GET#new' do
       #ログインせずnewページに行ってもログインページにリダイレクトすること
       it "redirect_to sign_in page" do
@@ -282,7 +276,6 @@ describe PrototypesController do
     end
 
     describe 'GET#edit' do
-      let(:prototype){ create(:prototype_with_main_image) }
       #ログインせず更新ページに行ってもログインページにリダイレクトすること
       it "redirect_to sign_in page" do
         get :edit, id: prototype
@@ -292,7 +285,6 @@ describe PrototypesController do
     end
 
     describe 'PATCH#update' do
-      let(:prototype){ create(:prototype_with_main_image) }
       #ログインせず更新してもログインページにリダイレクトすること
       it "redirect_to sign_in page" do
         patch :update, id: prototype, prototype: attributes_for(:prototype,title: "update")
@@ -302,7 +294,6 @@ describe PrototypesController do
     end
 
     describe 'DELETE#destroy' do
-      let(:prototype){ create(:prototype_with_main_image) }
       #ログインせず削除してもログインページにリダイレクトすること
       it "redirect_to sign_in page" do
         delete :destroy, id: prototype
