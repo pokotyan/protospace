@@ -34,7 +34,6 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    #binding.pry
     if @prototype.update(update_params)
       redirect_to prototype_path(@prototype), notice: "プロトタイプの更新が完了しました"
     else
