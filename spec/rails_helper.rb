@@ -15,7 +15,14 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.include FactoryGirl::Syntax::Methods
-  Capybara.javascript_driver = :poltergeist
+  Capybara.javascript_driver = :selenium
+
+  # Chromeでテストを動的に確認する
+  Capybara.register_driver :selenium do |app|
+    # http://code.google.com/p/chromedriver/downloads/list
+    # 上記にあるドライバーをlocalのパスが通ってるところに置く
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
 
   #Devise::MissingWardenへの対処 http://ohs30359.hatenablog.com/entry/2016/07/23/094933
   config.include Devise::Test::ControllerHelpers, type: :controller

@@ -53,6 +53,7 @@ group :test do
   gem "database_cleaner"    #データベースをまっさらな状態で各specが実行できるようにする
   gem "launchy"             #テストのデバック用
   gem "poltergeist"         #capybaraのためのドライバ
+  gem "selenium-webdriver"  #capybaraのためのドライバ。headlessではないのでテスト実行毎にブラウザが立ち上がる。
 end
 
 gem "haml-rails"
