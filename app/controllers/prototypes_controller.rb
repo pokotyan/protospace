@@ -1,5 +1,6 @@
 class PrototypesController < ApplicationController
   before_action :set_prototype, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index,:show]
 
   def index
     @prototypes = Prototype.includes(:images).page(params[:page]).order("created_at DESC")
@@ -34,10 +35,9 @@ class PrototypesController < ApplicationController
 
   def update
     if @prototype.update(update_params)
-      redirect_to root_path, notice: "プロトタイプの更新が完了しました"
+      redirect_to prototype_path(@prototype), notice: "プロトタイプの更新が完了しました"
     else
-      flash.now[:alert] = "プロトタイプの更新に失敗しました"
-      render :edit
+      redirect_to edit_prototype_path(@prototype), alert: "プロトタイプの更新に失敗しました"
     end
   end
 
