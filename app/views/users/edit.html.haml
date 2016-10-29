@@ -7,7 +7,7 @@
           .user-name.col-md-10
             = f.text_field :name, placeholder: "Username"
           .user-image.col-md-2.js-image-preview
-            =image_tag current_user.avatar.url, class: "media media-object", size: "64x64"
+            =image_tag current_user.avatar.url, class: "media media-object avatar-image", size: "64x64"
             =button_tag(class: "btn btn-primary") do
               Change image
               =f.file_field :avatar
