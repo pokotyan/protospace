@@ -22,8 +22,8 @@ RSpec.feature 'Sign_upとLog_out', type: :feature do
     #ログアウト
     click_on 'foo'
     click_on 'Logout'
-    # ログアウトして現在、rootに戻っていること
-    expect(current_path).to eq root_path
+    # ログアウトして現在、サインインページに戻っていること
+    expect(current_path).to eq new_user_session_path
 
   end
 end
